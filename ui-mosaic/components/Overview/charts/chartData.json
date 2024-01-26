@@ -1,0 +1,127 @@
+[
+    {
+        "timestamp": 1613347200,
+        "valueUsd": 0,
+        "valueToken": "0"
+    },
+    {
+        "timestamp": 1614556800,
+        "valueUsd": 0,
+        "valueToken": "0"
+    },
+    {
+        "timestamp": 1615766400,
+        "valueUsd": 0,
+        "valueToken": "0"
+    },
+    {
+        "timestamp": 1617235200,
+        "valueUsd": 0,
+        "valueToken": "0"
+    },
+    {
+        "timestamp": 1618444800,
+        "valueUsd": 0,
+        "valueToken": "0"
+    },
+    {
+        "timestamp": 1619827200,
+        "valueUsd": 0,
+        "valueToken": "0"
+    },
+    {
+        "timestamp": 1621036800,
+        "valueUsd": 0,
+        "valueToken": "0"
+    },
+    {
+        "timestamp": 1622505600,
+        "valueUsd": 260.6919750678122,
+        "valueToken": "0.000000198678778275"
+    },
+    {
+        "timestamp": 1623715200,
+        "valueUsd": 15000000,
+        "valueToken": "0.000054620661626591"
+    },
+    {
+        "timestamp": 1625097600,
+        "valueUsd": 55995171.95974137,
+        "valueToken": "0.713257576195125171"
+    },
+    {
+        "timestamp": 1626307200,
+        "valueUsd": 56933374.06729887,
+        "valueToken": "1.499428745462207301"
+    },
+    {
+        "timestamp": 1627776000,
+        "valueUsd": 55839367.909815155,
+        "valueToken": "2.661024206050012742"
+    },
+    {
+        "timestamp": 1628985600,
+        "valueUsd": 54761097.06300172,
+        "valueToken": "4.286739706765843826"
+    },
+    {
+        "timestamp": 1630454400,
+        "valueUsd": 53848118.41884771,
+        "valueToken": "5.732810065163391381"
+    },
+    {
+        "timestamp": 1631664000,
+        "valueUsd": 53454615.68202889,
+        "valueToken": "6.481121322689863289"
+    },
+    {
+        "timestamp": 1633046400,
+        "valueUsd": 53489331.46574589,
+        "valueToken": "6.808426961716559077"
+    },
+    {
+        "timestamp": 1634256000,
+        "valueUsd": 52628890.55413065,
+        "valueToken": "13.813776140121656626"
+    },
+    {
+        "timestamp": 1635724800,
+        "valueUsd": 50212108.77459143,
+        "valueToken": "19.616455560028508473"
+    },
+    {
+        "timestamp": 1636934400,
+        "valueUsd": 50501071.416054435,
+        "valueToken": "20.852262651526160858"
+    },
+    {
+        "timestamp": 1638316800,
+        "valueUsd": 48297428.573667325,
+        "valueToken": "37.318296214127093765"
+    },
+    {
+        "timestamp": 1639526400,
+        "valueUsd": 44964794.279746555,
+        "valueToken": "51.811440793498067995"
+    },
+    {
+        "timestamp": 1640995200,
+        "valueUsd": 43232233.212418385,
+        "valueToken": "59.503060933706110592"
+    },
+    {
+        "timestamp": 1642204800,
+        "valueUsd": 35932547.39407553,
+        "valueToken": "101.816062775166985785"
+    },
+    {
+        "timestamp": 1643673600,
+        "valueUsd": 35322131.13965072,
+        "valueToken": "105.096509464899619582"
+    },
+    {
+        "timestamp": 1644883200,
+        "valueUsd": 25911117.187328663,
+        "valueToken": "166.25758707559694527"
+    }
+]

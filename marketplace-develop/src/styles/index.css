@@ -1,0 +1,20 @@
+/* global styles in this file */
+body {
+  margin: 0;
+  padding: 0;
+}
+
+@font-face {
+  font-family: 'Poppins';
+  src: local('Poppins'), url('../fonts/Poppins-Regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Poppins-bold';
+  src: local('Poppins-bold'), url('../fonts/Poppins-Bold.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Poppins-thin';
+  src: local('Poppins-bold'), url('../fonts/Poppins-Thin.ttf') format('truetype');
+}

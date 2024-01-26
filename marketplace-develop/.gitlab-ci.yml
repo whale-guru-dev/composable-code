@@ -1,0 +1,85 @@
+variables:
+  NODEJS_VERSION: '16.9.1'
+  AWS_ECR: '769325152790.dkr.ecr.us-west-2.amazonaws.com'
+  TESTNET_HOST: '172.31.77.218'
+  PRODNET_HOST: '172.31.77.148'
+  RUNCMD_URL: 'git.energi.software:energi/tech/defi/nft/marketplace/snippets/12.git'
+  TESTNET_FQDN: 'marketplace.test'
+  PRODNET_FQDN: 'marketplace.prd'
+
+stages:
+  - build-base
+  - build-app-develop
+  - build-app-master
+  - deploy-app-testnet
+  - deploy-app-mainnet
+
+.prep-key:
+  tags: [docker_runner]
+  before_script:
+    - apk add openssh-client bash curl sed git
+    - eval $(ssh-agent -s)
+    - echo "$SSH_RSA_KEY" | tr -d '\r' | ssh-add -
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+
+build-base-image:
+  stage: build-base
+  tags: [docker_runner]
+  script:
+    - docker build -f dockerfiles/base-image/Dockerfile -t ${AWS_ECR}/marketplace:base-nodejs-${NODEJS_VERSION} .
+    - docker push ${AWS_ECR}/marketplace:base-nodejs-${NODEJS_VERSION}
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "develop"'
+      changes:
+        - dockerfiles/base-image/docker-entrypoint.sh
+        - dockerfiles/base-image/Dockerfile
+        - .dockerignore
+
+build-app-image-develop:
+  stage: build-app-develop
+  tags: [docker_runner]
+  script:
+    - docker pull ${AWS_ECR}/marketplace:base-nodejs-${NODEJS_VERSION}
+    - docker build -f dockerfiles/app-image/Dockerfile -t ${AWS_ECR}/marketplace:develop-${CI_COMMIT_SHORT_SHA} .
+    - docker push ${AWS_ECR}/marketplace:develop-${CI_COMMIT_SHORT_SHA}
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "develop"'
+
+build-app-image-master:
+  stage: build-app-master
+  tags: [docker_runner]
+  script:
+    - docker pull ${AWS_ECR}/marketplace:base-nodejs-${NODEJS_VERSION}
+    - docker build -f dockerfiles/app-image/Dockerfile -t ${AWS_ECR}/marketplace:master-${CI_COMMIT_SHORT_SHA} .
+    - docker push ${AWS_ECR}/marketplace:master-${CI_COMMIT_SHORT_SHA}
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "master"'
+
+deploy-app-image-testnet:
+  stage: deploy-app-testnet
+  tags: [docker_runner]
+  extends: .prep-key
+  script:
+    - curl --header "PRIVATE-TOKEN:${READ_ONLY_USER_TOKEN}" "https://git.energi.software/api/v4/snippets/12/raw" -o "runcmd.sh"
+    - sed -i "s/FQDN/${TESTNET_FQDN}/g" runcmd.sh
+    - sed -i "s/REGISTRY/${AWS_ECR}/g" runcmd.sh
+    - sed -i "s/CONTAINER-IMAGE/marketplace:develop-${CI_COMMIT_SHORT_SHA}/g" runcmd.sh
+    - cat runcmd.sh | ssh -o StrictHostKeyChecking=no ubuntu@${TESTNET_HOST}
+    - rm -rf runcmd.sh
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "develop"'
+
+deploy-app-image-mainnet:
+  stage: deploy-app-mainnet
+  tags: [docker_runner]
+  extends: .prep-key
+  script:
+    - curl --header "PRIVATE-TOKEN:${READ_ONLY_USER_TOKEN}" "https://git.energi.software/api/v4/snippets/12/raw" -o "runcmd.sh"
+    - sed -i "s/FQDN/${PRODNET_FQDN}/g" runcmd.sh
+    - sed -i "s/REGISTRY/${AWS_ECR}/g" runcmd.sh
+    - sed -i "s/CONTAINER-IMAGE/marketplace:master-${CI_COMMIT_SHORT_SHA}/g" runcmd.sh
+    - cat runcmd.sh | ssh -o StrictHostKeyChecking=no ubuntu@${PRODNET_HOST}
+    - rm -rf runcmd.sh/
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "master"'

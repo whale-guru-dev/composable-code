@@ -1,0 +1,9 @@
+import NftTransferStatus from 'components/Nfts/Transfer/status'
+
+const NftTransferStatusContainer = () => {
+  return (
+    <NftTransferStatus />
+  )
+}
+
+export default NftTransferStatusContainer

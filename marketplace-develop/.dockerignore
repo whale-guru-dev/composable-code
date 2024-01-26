@@ -1,0 +1,5 @@
+# Ignore uncessary files on the build
+/.git/
+/.cache/
+/node_modules/
+
